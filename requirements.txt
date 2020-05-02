@@ -1,4 +1,9 @@
 Flask
 Flask-Session
+flask_bcrypt
 psycopg2-binary
 SQLAlchemy
+requests
+bs4
+json
+datetime
