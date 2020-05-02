@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+
+{% block title %}Bookify{% endblock %}
+
+
+{% block head %}
+
+    {{ super() }}
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-4">Bookify provides you first class book reviews and articles</h1>
+    <!-- <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p> -->
+    <hr class="my-4">
+    <!-- <p>It uses utility classes for typography and spacing to space content out within the larger container.</p> -->
+    <a class="btn btn-outline-secondary btn-lg" href="#cards" role="button">See top-rated book</a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="card-deck" id="cards">
+{% for book in books %}
+
+      <div class="card col-md-6 col-lg-4 mb-3" style="min-width:18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{ book.title }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ book.isbn }}</h6>
+          <p class="card-text">Written in {{book.year }} by {{ book.author }} </p>
+           <a href="/book/{{ book.index }}"  class="btn btn-outline-secondary">Read reviews</a>
+        </div>
+      </div>
+{% endfor %}
+</div>
+  </div>
+</div>
+
+{% endblock %}

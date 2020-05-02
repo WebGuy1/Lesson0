@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+
+{% block title %}Bookify{% endblock %}
+
+
+{% block head %}
+
+    {{ super() }}
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="container">
+  <h1>Here are your result:</h1>
+  <div class="row">
+    {% if not results %}
+    <h2>Nothing found. </h2>
+    {% endif %}
+    
+{% for result in results %}
+
+      <div class="card col-md-6 col-lg-4 mt-3" style="min-width:18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{ result.title }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ result.isbn }}</h6>
+          <p class="card-text">Written in {{ result.year }} by {{ result.author }} </p>
+           <a href="/book/{{ result.index }}"  class="btn btn-outline-secondary">Read reviews</a>
+        </div>
+      </div>
+
+{% endfor %}
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+{% block title %}Bookify - register{% endblock %}
+
+
+{% block head %}
+
+    {{ super() }}
+
+{% endblock %}
+
+
+
+{% block content %}
+<h1> Hello {{user.name}} with email {{user.email}} and password {{user.password}}</h1>
+{% endblock %}

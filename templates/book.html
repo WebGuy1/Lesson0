@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+
+{% block title %}Bookify{% endblock %}
+
+
+{% block head %}
+
+    {{ super() }}
+
+{% endblock %}
+
+
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="img  col-sm-3 mx-sm-auto col-md-3 w-25 h-25 mt-4">
+            <img class= "rounded float-right" src="{{ gbooks_data['book_img'] }} style="height: 180px;">
+        </div>
+        <div class="book-info col-md-9 mt-3">
+            <h1>{{ book.title }}</h1>
+            <h2>Written by <a href="/author/{{ book.author }}"> {{ book.author }} </a> in {{book.year}}</h2>
+            <h3>ISBN: {{ book.isbn }}</h3>
+            <hr>
+            <p style="font-size:1.5rem;">
+                {{ gbooks_data['book_description'] }}
+            </p>
+            <hr>
+        </div>
+
+        {% if gbooks_data['book_rating'] != None %}
+          <div class="rate d-flex align-items-center justify-content-center col-md-12 my-3 " style='font-size:1.5rem;'>
+              <p class="my-0">Average rating: {{ gbooks_data['book_rating'] }}</p>
+              <div id="rateYo"></div>
+          </div>
+          <hr>
+        {% endif %}
+
+
+
+        <div class="col-md-12 mt-2">
+          {% if not session %}
+              <h5>To write reviews on our site you must <a href="{{ url_for('register') }}">register or <a href="{{url_for('login')}}">login.</a></a></h5>
+          {% endif %}
+
+          {% if session["name"]%}
+          <form method="POST", action="{{url_for('comment')}}">
+              <div class="form-group">
+                  <label for="exampleFormControlTextarea1" class="display-5"><h5>Your comment</h5></label>
+                  <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+              <input type="hidden" name="book_id" value="{{ book.index }}">
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          <hr>
+          {% endif %}
+
+          {% for comment in comments %}
+          <div class="card my-2 " style="width: 20rem;">
+              <div class="card-body">
+                    <p class="card-text">{{comment.text}}</p>
+                    <h6 class="card-subtitle mb-2 text-muted">By <a href="/users/{{comment.author_name}}"> {{ comment.author_name }} </a> in {{ comment.date }}</h6>
+              </div>
+          </div>
+          {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<script>
+  $(function () {
+
+  $("#rateYo").rateYo({
+    readOnly: true,
+    rating: {{ gbooks_data['book_rating'] }},
+    starWidth: "20px"
+  });
+
+});
+</script>
+{% endblock %}

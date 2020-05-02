@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+
+{% block title %}Bookify{% endblock %}
+
+
+{% block head %}
+
+    {{ super() }}
+
+{% endblock %}
+
+
+
+{% block content %}
+  <div class="container">
+    <h1> {{author[0].author}} </h1>
+
+    <div class="row">
+    <ul class="list-group col-md-6 mt-3">
+      {% for work in author %}
+        <li class="list-group-item"><a href="/book/{{ work.index }}"> {{ work.title }}</a> written in {{ work.year }} </li>
+      {% endfor %}
+    </ul>
+    </div>
+  </div>
+
+
+{% endblock %}

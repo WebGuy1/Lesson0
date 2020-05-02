@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+
+{% block title %}Bookify{% endblock %}
+
+
+{% block head %}
+
+    {{ super() }}
+
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="container">
+      <div class="row">
+        <ul class="list-group col-md-6 mt-3">
+          {% for review in reviews %}
+              <div class="card mt-2" style="width: 20rem;">
+                  <div class="card-body">
+                        <p class="card-text"> <a href="/book/{{review.book_id}}"> {{ review.text }} </a></p>
+                        <h6 class="card-subtitle mb-2 text-muted">By <a href="#"> {{ review.author_name }} </a> in {{ review.date }}</h6>
+                  </div>
+              </div>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+{% endblock %}
